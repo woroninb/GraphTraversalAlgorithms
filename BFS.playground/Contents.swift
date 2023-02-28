@@ -30,22 +30,25 @@ class Node {
     }
 }
 
-var visited: Set<Int> = []
-
-func dfs(_ root: Node?)  {
-
-    guard let root = root else {
-        return
-    }
+func bfs(_ start: Node) {
+    var queue: [Node] = []
+    var visited: Set<Int> = []
     
-    print(root.id)
-    visited.insert(root.id)
-
-    for child in root.children {
-        if !visited.contains(child.id) {
-            dfs(child)
+    visited.insert(start.id)
+    queue.append(start)
+    
+    while !queue.isEmpty {
+        for item in queue {
+            let first = queue.removeFirst()
+            print(first.id)
+            for child in first.children {
+                if !visited.contains(child.id) {
+                    visited.insert(child.id)
+                    queue.append(child)
+                }
+            }
         }
     }
 }
 
-dfs(one)
+bfs(one)
